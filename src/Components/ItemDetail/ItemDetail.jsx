@@ -1,24 +1,37 @@
-//ItemDetail.js, que debe mostrar la vista de detalle de un ítem incluyendo su descripción, una foto y el precio
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import Item from "../Item/Item";
+import React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
 
-const ItemDetail = () => {
-  const [prod, setProd] = useState({});
-
-  let { id } = useParams();
-
-  useEffect(() => {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then((json) =>
-      setProd(json.data)
-    );
-  }, [id]);
+const ItemDetail = ({ prodUn }) => {
+  console.log(prodUn);
 
   return (
     <div className="Card-Prod">
-      <h1>Item Detail</h1>
-      <Item prod={prod} />
+      <Card sx={{ maxWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia component="img" image={prodUn.image} alt="green iguana" />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {/* {prodUn.name} */}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {prodUn.species}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {/* {prodUn.origin.name} */}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {prodUn.gender}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {prodUn.status}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </div>
   );
 };
