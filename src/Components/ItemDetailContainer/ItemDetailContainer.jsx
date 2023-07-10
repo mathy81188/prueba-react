@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { db } from "../../firebase/firebaseConfig";
+//import { collection, query, getDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import ItemDetail from "../../Components/ItemDetail/ItemDetail";
+import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
   const [prodUn, setProdUn] = useState({});
@@ -9,10 +11,18 @@ const ItemDetailContainer = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then((json) =>
-      setProdUn(json.data)
-    );
-  }, [id]);
+    const docRef = async () => {
+      const ref = doc(db, "productos", id);
+      const docSnap = await getDoc(ref);
+
+      if (docSnap.exists()) {
+        setProdUn(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    };
+    docRef();
+  }, []);
 
   return (
     <div>

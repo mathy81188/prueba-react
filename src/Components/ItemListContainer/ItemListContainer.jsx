@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { db } from "../../firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import "./ItemListContainer.css";
 import ItemList from "../ItemList/ItemList";
@@ -8,19 +9,26 @@ const ItemListContainer = () => {
   const [prods, setProds] = useState([]);
 
   const { id } = useParams();
+  const { category } = useParams();
 
   useEffect(() => {
-    axios(`https://rickandmortyapi.com/api/character`).then((json) => {
-      if (id) {
-        // Si "id" está definido, entonces filtramos el resultado y lo seteamos al estado
-        // setProds(json.data.results.filter(item => item.categoria === id));
-        setProds(json.data.results.filter((item) => item.species === id));
-      } else {
-        // caso contrario, seteamos el resultado completo, sin filtrar.
-        setProds(json.data.results);
-      }
-    });
-  }, [id]);
+    const getProds = async () => {
+      const q = query(
+        collection(db, "productos"),
+        where("category", "==", category)
+      );
+      const docs = [];
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(docs);
+      setProds(docs);
+    };
+
+    getProds();
+  }, []);
 
   return (
     <div>

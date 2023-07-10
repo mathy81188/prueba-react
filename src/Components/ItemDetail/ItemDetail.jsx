@@ -1,34 +1,51 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { useContext, useState } from "react";
+import ItemCount from "../ItemCount/ItemCount";
+import { CartContext } from "../CartContext/CartContext";
+import {
+  CardActionArea,
+  Typography,
+  CardMedia,
+  CardContent,
+  Card,
+} from "@mui/material";
 
 const ItemDetail = ({ prodUn }) => {
-  console.log(prodUn);
+  // const { carrito, setCarrito } = useContext(CartContext);
+  const [counter, setCounter] = useState(0);
+
+  const counterUp = () => {
+    setCounter(counter + 1);
+  };
+  const counterDown = () => {
+    counter > 1 && setCounter(counter - 1);
+  };
+
+  const handleAdd = () => {
+    console.log({ ...prodUn, counter });
+  };
 
   return (
     <div className="Card-Prod">
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
-          <CardMedia component="img" image={prodUn.image} alt="green iguana" />
+          <CardMedia component="img" image={prodUn.img} alt="green iguana" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {/* {prodUn.name} */}
+              {prodUn.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {prodUn.species}
+              {prodUn.price}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {/* {prodUn.origin.name} */}
+              {prodUn.origin}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {prodUn.gender}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {prodUn.status}
-            </Typography>
+            <ItemCount
+              prodUn={prodUn}
+              counter={counter}
+              counterUp={counterUp}
+              counterDown={counterDown}
+              handleAdd={handleAdd}
+            />
           </CardContent>
         </CardActionArea>
       </Card>
