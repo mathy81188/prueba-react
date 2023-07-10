@@ -14,8 +14,7 @@ const ItemListContainer = () => {
   useEffect(() => {
     const getProds = async () => {
       const q = query(
-        collection(db, "productos"),
-        where("category", "==", category)
+        category ? where("category", "==", id) : collection(db, "productos")
       );
       const docs = [];
       const querySnapshot = await getDocs(q);
@@ -23,7 +22,7 @@ const ItemListContainer = () => {
       querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
-      console.log(docs);
+      console.log(id);
       setProds(docs);
     };
 
