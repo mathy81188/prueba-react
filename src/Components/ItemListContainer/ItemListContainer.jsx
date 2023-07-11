@@ -8,26 +8,48 @@ import ItemList from "../ItemList/ItemList";
 const ItemListContainer = () => {
   const [prods, setProds] = useState([]);
 
+  // const { id } = useParams();
+  // const { category } = useParams();
+
   const { id } = useParams();
-  const { category } = useParams();
 
   useEffect(() => {
-    const getProds = async () => {
-      const q = query(
-        category ? where("category", "==", id) : collection(db, "productos")
-      );
-      const docs = [];
-      const querySnapshot = await getDocs(q);
+    const collectionRef = id
+      ? query(collection(db, "productos"), where("category", "==", id))
+      : collection(db, "productos");
 
-      querySnapshot.forEach((doc) => {
-        docs.push({ ...doc.data(), id: doc.id });
+    getDocs(collectionRef)
+      .then((response) => {
+        const prodsAdapted = response.docs.map((doc) => {
+          const data = doc.data();
+          return { id: doc.id, ...data };
+        });
+        setProds(prodsAdapted);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      console.log(id);
-      setProds(docs);
-    };
+  }, [id]);
 
-    getProds();
-  }, []);
+  // useEffect(() => {
+  //   const getProds = async () => {
+  //     const q = query(
+  //       id
+  //         ? query(collection(db, "productos"), where("category", "==", id))
+  //         : collection(db, "productos")
+  //     );
+  //     const docs = [];
+  //     const querySnapshot = await getDocs(q);
+
+  //     querySnapshot.forEach((doc) => {
+  //       docs.push({ ...doc.data(), id: doc.id });
+  //     });
+  //     console.log(id);
+  //     setProds(docs);
+  //   };
+
+  //   getProds();
+  // }, []);
 
   return (
     <div>

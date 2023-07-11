@@ -22,7 +22,7 @@ const ItemDetailContainer = () => {
       }
     };
     docRef();
-  }, []);
+  }, [id]);
 
   return (
     <div>

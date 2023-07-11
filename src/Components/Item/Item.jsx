@@ -17,7 +17,7 @@ const Item = ({ prod }) => {
               {prod.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {prod.price}
+              {`$${prod.price}`}
             </Typography>
           </CardContent>
         </CardActionArea>

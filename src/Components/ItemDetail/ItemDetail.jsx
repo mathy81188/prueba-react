@@ -20,8 +20,9 @@ const ItemDetail = ({ prodUn }) => {
     counter > 1 && setCounter(counter - 1);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
     console.log({ ...prodUn, counter });
+    e.preventDefault();
   };
 
   return (
@@ -34,7 +35,7 @@ const ItemDetail = ({ prodUn }) => {
               {prodUn.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {prodUn.price}
+              {`$${prodUn.price}`}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {prodUn.origin}
