@@ -8,16 +8,6 @@ import ItemDetailContainer from "./Components/ItemDetailContainer/ItemDetailCont
 import CartContext from "./Components/CartContext/CartContext";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const cambiar = () => {
-    if (user) {
-      setUser(null);
-    } else {
-      setUser({
-        name: "luis",
-      });
-    }
-  };
   return (
     <CartContext.Provider value={user}>
       <div className="App">
