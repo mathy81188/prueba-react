@@ -1,7 +1,9 @@
 import React from "react";
-
+import { useContext } from "react";
+import { CartContext } from "../CartContext/CartContext";
 const Cart = () => {
   //accede al contexto con el hook useContext
+  const { cartList, setCartList } = useContext(CartContext);
 
   return (
     <div>Cart</div>

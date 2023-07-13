@@ -4,6 +4,7 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { CartContext } from "../CartContext/CartContext";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -15,6 +16,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const CartWidget = () => {
+  // const [addToCart] = useContext(CartContext);
   //accede al contexto con el hook useContext
   //const ctx = useContext(CartContext);
 
@@ -23,7 +25,7 @@ const CartWidget = () => {
 
     <div className="CartWidget">
       <IconButton aria-label="cart">
-        <StyledBadge badgeContent={4} color="secondary">
+        <StyledBadge badgeContent={[]} color="secondary">
           <ShoppingCartIcon />
         </StyledBadge>
       </IconButton>

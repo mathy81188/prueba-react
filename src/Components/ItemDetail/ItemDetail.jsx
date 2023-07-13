@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 
 const ItemDetail = ({ prodUn }) => {
-  // const { carrito, setCarrito } = useContext(CartContext);
+  const { cartList, setCartList } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   const [counter, setCounter] = useState(0);
 
   const counterUp = () => {
@@ -22,6 +23,12 @@ const ItemDetail = ({ prodUn }) => {
 
   const handleAdd = (e) => {
     console.log({ ...prodUn, counter });
+    addToCart({ prodUn, counter });
+    // const isInCart = (id) => {
+    //   item.find((items) => item.id === id)
+    //     ? true
+    //     : false;
+    // };
     e.preventDefault();
   };
 
